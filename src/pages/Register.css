@@ -1,0 +1,46 @@
+/* Register page css */
+
+.reg_full_form{
+    /* background: yellow; */
+    width: 800px;
+    margin: auto;
+    padding: auto;
+}
+.reg_single_row{
+    /* background: brown; */
+    width: 100%;
+    display: flex;
+    padding-top: 10px;
+}
+.reg_single_row input{
+    min-width: 750px;
+}
+.reg_single_column{
+    /* background: lightblue; */
+    width:50%
+}
+.reg_single_column input{
+    min-width: 350px;
+}
+.reg_err{
+    color:red;
+    padding: 0px;
+    font-size: small;
+}
+
+
+/* Header css */
+.hed_div{
+    display: flex;
+}
+.hed_subdiv{
+    padding-left: 1000px;
+}
+.hed_div2{
+    height: 70px;
+    background-color:beige
+}
+.hed_stack{
+    justify-content: center;
+    padding-top: 14px;
+}

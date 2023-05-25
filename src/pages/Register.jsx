@@ -11,8 +11,10 @@ import { toast } from "react-toastify";
 import userService from "../service/user.service";
 import request from "../service/request";
 import authService from "../service/auth.service";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+    const navigate =useNavigate();
     // const [role,handleRole]=React.useState('');
     // const [data,setData]=React.useState('');
 
@@ -90,7 +92,7 @@ const Register = () => {
                     progress: undefined,
                     theme: "colored",
                 });
-                // Navigate("/login")
+                    navigate("./login")
             });
             // axios.post("https://book-e-sell-node-api.vercel.app/api/user", values /*userData */).then((res) => {
                 // toast.success('Success Notification ', {

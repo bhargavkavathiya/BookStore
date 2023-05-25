@@ -7,7 +7,8 @@ const getAllRoles = async () => {
   return request.get(url).then((res) => {
     return res;
   });
-};
+}
+
 const userService = {
   getAllRoles,
 };

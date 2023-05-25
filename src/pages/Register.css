@@ -44,3 +44,27 @@
     justify-content: center;
     padding-top: 14px;
 }
+
+/* Login Css */
+.log_maindiv{
+   display: flex;
+    justify-content:center;
+    /* background-color: aqua; */
+}
+.log_subdiv1{
+    /* background-color: bisque; */
+    width: 350px;
+}
+.log_subdiv2{
+    padding-left: 80px;
+    /* background-color: blueviolet; */
+    width: 300px;
+}
+.log_subdiv2 input{
+    min-width: 300px;
+    
+}
+.log_subdiv2 p{
+    margin: 0px 0px 20px 0px;
+    font-size: small;
+}

@@ -142,7 +142,7 @@ const Register = () => {
                                 {formik.errors.email && formik.touched.email ? <div className="reg_err">{formik.errors.email}</div> : null}
                             </label>
                         </div>
-                        <div className="reg_single_column" style={{ paddingTop: 22 }}>
+                        <div className="reg_single_column">
                             <FormControl fullWidth>
                                 <label htmlFor="roleId">Role*</label>
                                 <Select
@@ -175,14 +175,14 @@ const Register = () => {
                         <div className="reg_single_column">
                             <label>Password:<br />
                                 {/* <input type='text' name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> */}
-                                <TextField size="small" name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur}></TextField>
+                                <TextField type="password" size="small" name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur}></TextField>
                                 {formik.errors.password && formik.touched.password ? <div className="reg_err">{formik.errors.password}</div> : null}
                             </label><br />
                         </div>
                         <div className="reg_single_column">
                             <label>Confirm Password:<br />
                                 {/* <input type='text' name="confirm_password" value={formik.values.confirm_password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> */}
-                                <TextField size="small" name="confirm_password" value={formik.values.confirm_password} onChange={formik.handleChange} onBlur={formik.handleBlur}></TextField>
+                                <TextField type="password" size="small" name="confirm_password" value={formik.values.confirm_password} onChange={formik.handleChange} onBlur={formik.handleBlur}></TextField>
                                 {formik.errors.confirm_password && formik.touched.confirm_password ? <div className="reg_err">{formik.errors.confirm_password}</div> : null}
                             </label><br />
                         </div>

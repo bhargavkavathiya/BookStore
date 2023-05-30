@@ -1,3 +1,4 @@
+
 import request from "./request";
 
 const ENDPOINT = "api/user";
@@ -8,7 +9,13 @@ const getAllRoles = async () => {
     return res;
   });
 }
-
+// const search= async()=>{
+//   const ok="book"
+//   const url= `api/book/search?keyword=${ok}`;
+//   return request.get(url).then((res)=>{
+//     return res;
+//   });
+// }
 const userService = {
   getAllRoles,
 };

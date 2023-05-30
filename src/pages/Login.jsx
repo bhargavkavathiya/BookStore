@@ -25,7 +25,7 @@ function Login() {
             alert(JSON.stringify(values))
 
             authService.login(values).then((res)=>{
-                toast.success('Request send successfully ', {
+                toast.success('Login successfull', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -35,6 +35,8 @@ function Login() {
                     progress: undefined,
                     theme: "colored",
                 });
+            }).catch((res)=>{
+                
             })
         }
     });
@@ -63,7 +65,7 @@ function Login() {
                         {formik.errors.email && formik.touched.email ? <div className="reg_err">{formik.errors.email}</div> : null}
                         </label><br />
                         <label>Password*<br />
-                        <TextField name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} size="small"></TextField>
+                        <TextField type="password" name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} size="small"></TextField>
                         {formik.errors.password && formik.touched.password ? <div className="reg_err">{formik.errors.password}</div> : null}
                         </label><br/><br/>
                         <Button variant="contained" size="small" style={{ background: '#f14d54' }} type="submit">Login</Button>

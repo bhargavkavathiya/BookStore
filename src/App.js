@@ -8,6 +8,7 @@ import CartPage from './pages/CartPage';
 import Demo from './pages/Demo';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -22,10 +23,12 @@ function App() {
         draggable
         pauseOnHover
         theme="light" />
+
       <BrowserRouter>
         <Routes>
           <Route path='/' Component={Register} />
           <Route path='/login' Component={Login} />
+          <Route path='/cart' Component={Cart} />
           <Route path='/productPage' Component={ProductPage} />
           <Route path='/cartPage' Component={CartPage} />
         </Routes>

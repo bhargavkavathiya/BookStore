@@ -30,39 +30,92 @@
 
 
 /* Header css */
+.hed_not-found{
+    background-color: #FFFFFF;    
+    box-shadow: 0.5px 0.5px 4px 0.5px #838383;
+    border-radius: 4px;
+    z-index: 1;
+    height: 50px;
+}
+.hed_inner-rght{
+    width: 20%;
+    padding-right: 5px;
+}
+.hed_inner-lft{
+    width: 77%;
+}
+.hed_product-list-inner{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.hed_no-prod, .hed_related-product-list{
+    background-color: #FFFFFF;    
+    box-shadow: 0.5px 0.5px 4px 0.5px #838383;
+    border-radius: 4px;
+    z-index: 1;
+}
+.hed_product-list{
+    height: auto;
+    border-radius: 4px;
+}
+/* .hed_first{
+    width:auto;
+} */
 .hed_div{
     display: flex;
+    
 }
 .hed_subdiv{
-    padding-left: 1000px;
+    width: fit-content;
+    position: absolute;
+    right: 20px;   
+}
+.hed_subdiv button{
+    margin: 5px;
 }
 .hed_div2{
     height: 70px;
-    background-color:beige
+    background-color:beige;
 }
+.hed_txtField input{
+    width: 350px;
+}
+/* .hed_txtField{
+    max-width: 300px;
+} */
 .hed_stack{
     justify-content: center;
     padding-top: 14px;
+    display: flex;
+    
+}
+.hed_btn{
+    padding-left: 25px;
+}
+.hed_bookList{
+    width: 650px;
+    padding-left: 445px;
+}
+.hed_listItem:hover{
+    background-color: rgb(252, 252, 226);
 }
 
 /* Login Css */
 .log_maindiv{
    display: flex;
-    justify-content:center;
-    /* background-color: aqua; */
+   justify-content:center;
 }
 .log_subdiv1{
-    /* background-color: bisque; */
     width: 350px;
 }
 .log_subdiv2{
     padding-left: 80px;
-    /* background-color: blueviolet; */
     width: 300px;
 }
 .log_subdiv2 input{
-    min-width: 300px;
-    
+    min-width: 300px;  
 }
 .log_subdiv2 p{
     margin: 0px 0px 20px 0px;

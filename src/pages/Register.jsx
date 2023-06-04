@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import './Register.css'
-import { Link, Navigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from "axios";
 import { toast } from "react-toastify";
 import userService from "../service/user.service";
-import request from "../service/request";
 import authService from "../service/auth.service";
 import { useNavigate } from "react-router-dom";
 
@@ -53,9 +50,9 @@ const Register = () => {
         getRoles();
     }, [])
     // useEffect(() => {
-    //     axios.get("https://book-e-sell-node-api.vercel.app/api/user/roles").then((res) => {
-    //         console.log("User detail:", res.data);
-    //         setUser(res.data);
+        // axios.get("https://book-e-sell-node-api.vercel.app/api/user/roles").then((res) => {
+        //     console.log("User detail:", res.data);
+        //     setUser(res.data);
     //     });
     // }, [])
     const validate = Yup.object({
@@ -77,7 +74,7 @@ const Register = () => {
         },
         validationSchema: validate,
         onSubmit: (values) => {
-            alert(JSON.stringify(values))
+            // alert(JSON.stringify(values))
             delete values.id;
             delete values.confirm_password;
             

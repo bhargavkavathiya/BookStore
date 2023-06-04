@@ -1,14 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import userService from "../service/user.service";
 import { toast } from "react-toastify";
 import authService from "../service/auth.service";
+import { useAuthContext } from "../context/auth";
 function Login() {
+
+    const navigate =useNavigate();
+    const authContext=useAuthContext();
 
     const validate=Yup.object({
         email:Yup.string().email('Invalid email').required('Email is required'),
@@ -22,8 +25,6 @@ function Login() {
         },
         validationSchema:validate,
         onSubmit:(values)=>{
-            alert(JSON.stringify(values))
-
             authService.login(values).then((res)=>{
                 toast.success('Login successfull', {
                     position: "top-right",
@@ -35,10 +36,13 @@ function Login() {
                     progress: undefined,
                     theme: "colored",
                 });
-            }).catch((res)=>{
-                
+                authContext.setUser(res);
+                // navigate("/productPage")
+            }).catch((err)=>{
+                console.log(err)
             })
-        }
+            
+        },
     });
     return (
         <>

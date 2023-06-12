@@ -1,0 +1,38 @@
+.ub_mainDiv{
+    width: 800px;
+    padding: 30px;
+    margin: auto;
+    align-items: center;
+}
+.ub_subDiv1{
+    display: flex;
+    width: 100%;
+}
+.ub_subDiv1-1{
+width: 50%;
+}
+.ub_subDiv1 input{
+    width: 320px;
+}
+
+.ub_subDiv1-2{
+    width: 50%;
+}
+.ub_subDiv2{
+    display: flex;
+}
+.ub_subDiv2-1{
+    width: 50%;
+}
+.ub_subDiv2-2{
+    width: 50%;
+}
+.ub_subDiv2 input{
+    width: 320px;
+}
+.ub_subDiv3{
+    width: 100%;
+}
+.ub_subDiv3 input{
+    width: 720px;
+}

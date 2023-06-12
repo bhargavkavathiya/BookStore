@@ -1,26 +1,29 @@
 
 import { Button, Divider, List, ListItem, Stack, TextField } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import SearchIcon from '@mui/icons-material/Search'
-import userService from "../service/user.service";
-import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import bookService from "../service/book.service";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { useAuthContext } from "../context/auth";
-import shared from "../utils/shared";
+import { NavigationItems, addtoCart} from "../utils/shared";
+import { toast } from "react-toastify";
+import {useCartContext } from "../context/cart";
+// import cartService from "../service/cart.service";
 
 // import Img from "./assets/Logo.png"
 
 function Header() {
+
     const navigate = useNavigate();
     const authContext = useAuthContext();
+    const cartContext= useCartContext();
     const logOut = () => {
         authContext.signOut();
     };
 
     const items = useMemo(() => {
-        return shared.NavigationItems.filter(
+        return NavigationItems.filter(
             (item) =>
                 !item.access.length || item.access.includes(authContext.user.roleId)
         );
@@ -50,9 +53,26 @@ function Header() {
 
     const search = () => {
         searchBook();
-        setOpenSearchResult(true)
+        setOpenSearchResult(true);
     };
+    const addToCart = (book) => {
+        if(!authContext.user.id) {
+            navigate('/login');
+            toast.error("Please Login before adding books to cart", { theme: 'colored' });
+        } else {
+            addtoCart(book, authContext.user.id).then((res) => {
+                if(res.error) {
+                    toast.error(res.error, {theme: 'colored'});
+                } else {
+                    toast.success("Item added in cart", { theme: 'colored' });
+                    cartContext.updateCart();
+                }
+            })
+        }
+    }
 
+
+  
     return (
         <>
         <div className="hed_first">
@@ -92,7 +112,7 @@ function Header() {
                             }}
                             startIcon={<ShoppingCartIcon />}
                         >
-                            {0} Cart
+                            {cartContext.cartData.length} Cart
                         </Button>
                     </Link>
                     {authContext.user.id ? (
@@ -141,7 +161,7 @@ function Header() {
                                 )
                                 }
                                 <List className="hed_related-product-list">
-                                    {bookList?.length > 0 && bookList.map((item, i) => {
+                                    {bookList?.length > 0 && bookList.map((book, i) => {
                                         return (
                                             <>
                                                 <div className="hed_listItem">
@@ -150,19 +170,21 @@ function Header() {
                                                         <div className="hed_product-list-inner">
                                                             <div className="hed_inner-lft">
                                                                 <span className="txt-41 txt-lb">
-                                                                    {item.name}
+                                                                    {book.name}
                                                                 </span>
                                                                 <p>
-                                                                    {item.description}
+                                                                    {book.description}
                                                                 </p>
                                                             </div>
                                                             <div className="hed_inner-rght">
                                                                 <span>
-                                                                    {item.price}
+                                                                    {book.price}
                                                                 </span>
                                                                 <Button
                                                                     size="small"
                                                                     className="c-f14d54"
+                                                                    onClick={() => addToCart(book)}
+                                                                
                                                                 >
                                                                     Add to Cart
                                                                 </Button>

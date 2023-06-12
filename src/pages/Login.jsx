@@ -57,7 +57,7 @@ function Login() {
                         <li>Save multiple shoping addresses</li>
                         <li>View and track order and more</li>
                     </ul>
-                    <Button variant="contained" style={{ background: '#f14d54' }}>Create an Account</Button>
+                    <Button variant="contained" style={{ background: '#f14d54' }} onClick={()=>navigate('/')}>Create an Account</Button>
                 </div>
                 <div className="log_subdiv2">
                     <form onSubmit={formik.handleSubmit}>

@@ -8,6 +8,7 @@ const getAll = async (params) => {
         url = `${ENDPOINT}`;
     }
     return request.get(url, { params }).then((res) => {
+        // console.log(res)
         return res;
     });
 };

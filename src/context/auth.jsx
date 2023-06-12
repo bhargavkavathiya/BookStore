@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import shared from "../utils/shared";
+import { hasAccess } from "../utils/shared";
 
 const intialUserValue = {
   email: "",
@@ -20,9 +20,9 @@ const initialState = {
   signOut: () => {},
 };
 
-const authContext = createContext(initialState);
+export const AuthContext = createContext(initialState);
 
-export const AuthWarpper = ({ children }) => {
+export const AuthWrapper = ({ children }) => {
   const [user, _setUser] = useState(intialUserValue);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -45,14 +45,14 @@ export const AuthWarpper = ({ children }) => {
     if (!user.id) {
       return;
     }
-    const access = shared.hasAccess(pathname, user);
-    //  if(!access) {
-    //   toast.warning("sorry, you are not authorized to access this page",{
-    //     position: "top-left",
-    //   });
-    //   navigate("/bookList");
-    //   return;
-    // }
+    const access = hasAccess(pathname, user);
+     if(!access) {
+      toast.warning("sorry, you are not authorized to access this page",{
+        position: "top-left",
+      });
+      navigate("/bookList");
+      return;
+    }
   }, [user, pathname]);
 
   const setUser = (user) => {
@@ -72,8 +72,8 @@ export const AuthWarpper = ({ children }) => {
     signOut,
   };
 
-  return <authContext.Provider value={value}>{children}</authContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 export const useAuthContext = () => {
-  return useContext(authContext);
+  return useContext(AuthContext);
 };

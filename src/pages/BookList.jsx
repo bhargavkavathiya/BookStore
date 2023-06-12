@@ -8,11 +8,17 @@ import categoryService from "../service/catagory.service";
 import bookService from "../service/book.service";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { useAuthContext } from "../context/auth";
+import { useCartContext } from "../context/cart";
+import { toast } from "react-toastify";
+import { addtoCart } from "../utils/shared";
 
 
 const BookList = () => {
 
 
+    const authContext = useAuthContext();
+    const cartContext = useCartContext();
     const [bookResponse, setBookResponse] = useState({
         pageIndex: 0,
         PageSize: 10,
@@ -88,6 +94,18 @@ const BookList = () => {
             return 0;
         });
         setBookResponse({ ...bookResponse, items: bookList });
+    };
+
+    const addToCart = (book) => {
+        /* from shared.jsx */
+        addtoCart(book, authContext.user.id).then((res) => {
+            if (res.error) {
+                toast.error(res.message, { theme: 'colored' })
+            } else {
+                toast.success(res.message, { theme: 'colored' })
+                cartContext.updateCart();
+            }
+        });
     };
 
     return(
@@ -185,13 +203,14 @@ const BookList = () => {
                                     </div>
 
                                     <div className="bl-price">
-                                        <p> MRP {book.price} </p>
+                                        <p> MRP ₹{book.price} </p>
                                     </div>
 
                                     <div className="bl-cart-btn">
                                         <Button
                                             variant="contained"
                                             className="bg-f14d54 f1-btn-hover"
+                                            onClick={() => addToCart(book)}
                                         >
                                             Add to Cart
                                         </Button>

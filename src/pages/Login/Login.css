@@ -1,0 +1,18 @@
+.log_maindiv{
+    display: flex;
+    justify-content:center;
+ }
+ .log_subdiv1{
+     width: 350px;
+ }
+ .log_subdiv2{
+     padding-left: 80px;
+     width: 300px;
+ }
+ .log_subdiv2 input{
+     min-width: 300px;  
+ }
+ .log_subdiv2 p{
+     margin: 0px 0px 20px 0px;
+     font-size: small;
+ }

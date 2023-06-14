@@ -5,10 +5,14 @@ import SearchIcon from '@mui/icons-material/Search'
 import { Link, useNavigate } from "react-router-dom";
 import bookService from "../service/book.service";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
-import { useAuthContext } from "../context/auth";
+// import { useAuthContext } from "../context/auth";
 import { NavigationItems, addtoCart} from "../utils/shared";
 import { toast } from "react-toastify";
 import {useCartContext } from "../context/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../State/Slice/authSlice";
+import { fetchCartData } from "../State/Slice/cartSlice";
+import './Header.css'
 // import cartService from "../service/cart.service";
 
 // import Img from "./assets/Logo.png"
@@ -16,18 +20,31 @@ import {useCartContext } from "../context/cart";
 function Header() {
 
     const navigate = useNavigate();
-    const authContext = useAuthContext();
-    const cartContext= useCartContext();
+    // const authContext = useAuthContext();
+    // const cartContext= useCartContext();
+     const cartData = useSelector((state) => state.cart.cartData);
+    const user = useSelector((state) =>state.auth.user)
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        const userId = user.id;
+
+        if (userId && cartData.length === 0) {
+            dispatch(fetchCartData(userId));
+        }
+    }, [user.id, cartData.length, dispatch]);
+
     const logOut = () => {
-        authContext.signOut();
+        dispatch(signOut())
+        navigate('/login')
     };
 
     const items = useMemo(() => {
         return NavigationItems.filter(
             (item) =>
-                !item.access.length || item.access.includes(authContext.user.roleId)
+                !item.access.length || item.access.includes(user.roleId)
         );
-    }, [authContext.user]);
+    }, [user]);
 
     const handleLogin = () => {
         navigate('/login')
@@ -56,16 +73,16 @@ function Header() {
         setOpenSearchResult(true);
     };
     const addToCart = (book) => {
-        if(!authContext.user.id) {
+        if(!user.id) {
             navigate('/login');
             toast.error("Please Login before adding books to cart", { theme: 'colored' });
         } else {
-            addtoCart(book, authContext.user.id).then((res) => {
+            addtoCart(book,user.id).then((res) => {
                 if(res.error) {
                     toast.error(res.error, {theme: 'colored'});
                 } else {
                     toast.success("Item added in cart", { theme: 'colored' });
-                    cartContext.updateCart();
+                    dispatch(fetchCartData(user.id));
                 }
             })
         }
@@ -80,7 +97,7 @@ function Header() {
 
                 <img src="./Logo.png" height={50} />
                 <div className="hed_subdiv">
-                    {!authContext.user.id && (
+                    {!user.id && (
 
                         <>
                             <Button variant="" onClick={handleLogin}>Login</Button>
@@ -112,10 +129,10 @@ function Header() {
                             }}
                             startIcon={<ShoppingCartIcon />}
                         >
-                            {cartContext.cartData.length} Cart
+                            {cartData.length} Cart
                         </Button>
                     </Link>
-                    {authContext.user.id ? (
+                    {user.id ? (
                         <Button
                             variant="contained"
                             sx={{

@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { LocalStorageKeys } from "../../utils/shared";
 import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "../../utils/enum";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialUserValues = {
     email: "",

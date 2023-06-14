@@ -1,5 +1,5 @@
 export const RoutePaths = {
-  Login: "/login",
+  Login: "/",
   Register: "/register",
   User: "/user",
   EditUser: "/edit-user/:id",
@@ -9,7 +9,7 @@ export const RoutePaths = {
   Book: "/book",
   EditBook: "/edit-book/:id",
   AddBook: "/add-book",
-  BookListing: "/",
+  BookListing: "/bookList",
   Cart: "/cart",
   UpdateProfile: "/update-profile",
 };

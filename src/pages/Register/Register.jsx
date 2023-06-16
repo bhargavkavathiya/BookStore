@@ -8,7 +8,8 @@ import * as Yup from 'yup';
 import { toast } from "react-toastify";
 import userService from "../../service/user.service";
 import authService from "../../service/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -40,6 +41,8 @@ const Register = () => {
     // })
     // }
     const [roleList, setRoleList] = React.useState('');
+    const user = useSelector((state) => state.auth.user);
+
 
     const getRoles = () => {
         userService.getAllRoles().then((res) => {
@@ -48,7 +51,17 @@ const Register = () => {
     };
     useEffect(() => {
         getRoles();
-    }, [])
+    }, []);
+
+    const { pathname } = useLocation();
+    useEffect(()=>{
+        if (pathname === '/' && user.id) {
+            navigate('/bookList');
+        }
+        if (!user.id) {
+            return;
+        }
+    },[pathname,user])
     // useEffect(() => {
     // axios.get("https://book-e-sell-node-api.vercel.app/api/user/roles").then((res) => {
     //     console.log("User detail:", res.data);
@@ -108,7 +121,6 @@ const Register = () => {
 
     return (
         <>
-            <Header />
             <div className="reg_full_form">
                 <h2 style={{ textAlign: 'center' }}>Login or Create an Account</h2>
                 <form onSubmit={formik.handleSubmit} >
@@ -192,7 +204,6 @@ const Register = () => {
             </div >
             <br />
 
-            <Footer />
         </>
     );
 }

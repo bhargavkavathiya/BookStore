@@ -11,24 +11,36 @@ import { messages } from '../../utils/shared';
 // import { AuthContext, useAuthContext } from '../context/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../State/Slice/authSlice';
+import { useEffect } from 'react';
 
 
 const UpdateProfile = () => {
-    //------------------------------------------------------------------------------------
 
     const navigate = useNavigate();
     const dispach = useDispatch();
+    const user = useSelector((state) => state.auth.user)
+    const [updatePassword, setupdatePassword] = useState(false);
 
-    //---------------------------------------------------------------------------st onSubmit
+    const isSubset = (superObj, subObj) => {
+        return Object.keys(subObj).every((ele) => {
+            return subObj[ele] === superObj[ele]
+        });
+    };
 
+
+    
+   
     const onSubmit = async (values) => {
         const password = values.newPassword ? values.newPassword : user.password;
         delete values.confirmPassword;
         delete values.newPassword;
 
-        const data = Object.assign(user, { ...values, password });
-        delete data.__v;
-        delete data._id;
+        const data = {...user, ...values, password}
+        console.log("My data:",data);
+        if (isSubset(user, data)) {
+            toast.info("Change something to update Profile", {theme: 'colored'})
+            return
+        }
         const res = await userService.updateProfile(data);
         if (res) {
             dispach(setUser(res));
@@ -37,21 +49,14 @@ const UpdateProfile = () => {
         }
     };
 
-    //---------------------------------------------------------------------------nd onSubmit
 
-
-    //------------------------------------------------------------st Validation
-
-    const [updatePassword, setupdatePassword] = useState(false);
-    const user = useSelector((state) => state.auth.user)
-    const initialValues = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        newPassword: '',
-        confirmPassword: '',
-    }
-
+        const initialValues = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            newPassword: '',
+            confirmPassword: '',
+        }
 
     const updateProfileSchema = Yup.object().shape(
         {
@@ -80,10 +85,8 @@ const UpdateProfile = () => {
         }
     );
 
-    //------------------------------------------------------------nd Validation
 
 
-    //------------------------------------------------------------st newPassword
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -91,10 +94,8 @@ const UpdateProfile = () => {
         event.preventDefault();
     };
 
-    //------------------------------------------------------------nd newPassword
 
 
-    //------------------------------------------------------------------------------------
 
     return (
         <>

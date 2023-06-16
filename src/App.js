@@ -18,12 +18,15 @@ import UpdateProfile from './pages/UpdateProfile/UpdateProfile';
 import { CartWrapper } from './context/cart';
 import { Provider, useSelector } from 'react-redux';
 import store from './State';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Navigation from './components/Navigation';
+import { loadIcon } from './assets';
 
 function App() {
-  // const user = useSelector((state) => state.auth.user)
   return (
     <>
-
+    
       <ToastContainer position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -37,30 +40,18 @@ function App() {
 
       <BrowserRouter>
         <Provider store={store}>
+        
           {/* <AuthWrapper> 
            <CartWrapper> */}
-          <Routes>
-            <Route path='/' Component={Register} />
-            <Route path='/login' Component={Login} />
-            <Route path='/cart' Component={Cart} />
-            <Route path='/bookList' Component={BookList} />
-            <Route path='/cart' Component={Cart} />
-            <Route path='/book' Component={Book} />
-            <Route path='/edit-book/:id' Component={Editbook} />
-            <Route path='/add-book' Component={Editbook} />
-            <Route path='/user' Component={User} />
-            <Route path='/edit-user/:id' Component={EditUser} />
-            <Route path='/category' Component={Category} />
-            <Route path='/edit-category/:id' Component={EditCategory} />
-            <Route path='/add-category' Component={EditCategory} />
-            <Route path='/cart' Component={Cart} />
-            <Route path='/update-profile' Component={UpdateProfile} />
-
-          </Routes>
+           <Header/>
+          
+            <Navigation/>
+          <Footer/>
           {/* </CartWrapper> 
          </AuthWrapper> */}
         </Provider>
       </BrowserRouter>
+      
 
     </>
   );

@@ -115,7 +115,7 @@ const BookList = () => {
 
     return (
         <>
-            <Header />
+
             <div className="bl-container-center">
                 <h1
                     className="ff-r txt-41"
@@ -239,7 +239,6 @@ const BookList = () => {
                     />
                 </div>
             </div>
-            <Footer />
         </>
     );
 }

@@ -50,17 +50,18 @@ function Login() {
         email: Yup.string().email('Invalid email').required('Email is required'),
         password: Yup.string().min(6, "Must be atleast 6 character").required('Password must require'),
     })
-
+    
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
         validationSchema: validate,
-        onSubmit: (values) => {
+        onSubmit: (values,{resetForm}) => {
             authService.login(values).then((res) => {
-                // delete res.__v;
-                // delete res._id;
+                
+                delete res.__v;
+                delete res._id;
                 dispatch(setUser(res))
                 navigate('/bookList');
                 toast.success('Login successfull', {
@@ -72,17 +73,19 @@ function Login() {
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
-                });
+                })
                 // authContext.setUser(res);
             }).catch((err) => {
-                console.log('inavalid User name and password.', err)
+               resetForm(formik.values='')
+                console.log('inavalid User name and password.', err);   
             })
+            
 
         },
     });
     return (
         <>
-            <Header />
+        
             <h2 style={{ textAlign: "center" }}>Login or Create an Account</h2>
             <div className="log_maindiv">
                 <div className="log_subdiv1">
@@ -114,7 +117,7 @@ function Login() {
             </div>
 
 
-            <Footer />
+      
         </>
     );
 }

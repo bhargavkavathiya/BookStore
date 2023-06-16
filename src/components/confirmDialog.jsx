@@ -3,6 +3,15 @@ import React from "react";
 
 const ConfirmDialog = (props) => {
     const { open, onClose, onConfirm, title, description } = props;
+    const styles={
+        cancel:{
+
+            backgroundColor:"green",
+        },
+        confirm:{
+            backgroundColor:"red",
+        }
+    }
     return (
     <>
         <Dialog
@@ -24,14 +33,14 @@ const ConfirmDialog = (props) => {
                 <Button
                     variant="contained"
                     onClick={() => onClose()}
-                    className="uni-delete-btn"
+                    style={styles.cancel}
                 >
                     Cancel
                 </Button>
                 <Button
                     variant="contained"
                     onClick={() => onConfirm()}
-                    className="uni-save-btn"
+                    style={styles.confirm}
                 >
                     Ok
                 </Button>

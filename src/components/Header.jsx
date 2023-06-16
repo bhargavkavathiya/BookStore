@@ -5,17 +5,14 @@ import SearchIcon from '@mui/icons-material/Search'
 import { Link, useNavigate } from "react-router-dom";
 import bookService from "../service/book.service";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
-// import { useAuthContext } from "../context/auth";
-import { NavigationItems, addtoCart} from "../utils/shared";
+import { LocalStorageKeys, NavigationItems, addtoCart} from "../utils/shared";
 import { toast } from "react-toastify";
 import {useCartContext } from "../context/cart";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../State/Slice/authSlice";
+import { setUser, signOut } from "../State/Slice/authSlice";
 import { fetchCartData } from "../State/Slice/cartSlice";
 import './Header.css'
-// import cartService from "../service/cart.service";
 
-// import Img from "./assets/Logo.png"
 
 function Header() {
 
@@ -31,6 +28,11 @@ function Header() {
 
         if (userId && cartData.length === 0) {
             dispatch(fetchCartData(userId));
+        }
+        const str = JSON.parse(localStorage.getItem(LocalStorageKeys.USER));
+        console.log("My STR:",str);
+        if (str?.id) {
+            dispatch(setUser(str));
         }
     }, [user.id, cartData.length, dispatch]);
 
@@ -115,6 +117,7 @@ function Header() {
                             onClick={() => {
                                 navigate(item.route);
                             }}
+                            style={{borderRight:'solid',borderRadius:0}}
                         >
                             {item.name}
                         </Button>
